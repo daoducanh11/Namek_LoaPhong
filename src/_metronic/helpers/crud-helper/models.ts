@@ -4,8 +4,9 @@ export type ID = undefined | null | number
 
 export type PaginationState = {
   currentPage: number
-  pageSize: 5 | 10 | 30 | 50 | 100
+  pageSize: number
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
+  totalPages: number
 }
 
 export type SortState = {
@@ -31,10 +32,11 @@ export type Response<T> = {
     pagination?: PaginationState
   }
   Data?: T
-  TotalItems?: Number
-  CurrentPage?: Number
-  PageSize?: Number
-  TotalPages?: Number
+  TotalItems?: number
+  CurrentPage?: number
+  PageSize?: number
+  TotalPages?: number
+  Pagination?: PaginationState
 }
 
 export type QueryState = PaginationState & SortState & FilterState & SearchState
@@ -47,6 +49,7 @@ export type QueryRequestContextProps = {
 export const initialQueryState: QueryState = {
   currentPage: 1,
   pageSize: 5,
+  totalPages: 1
 }
 
 export const initialQueryRequest: QueryRequestContextProps = {

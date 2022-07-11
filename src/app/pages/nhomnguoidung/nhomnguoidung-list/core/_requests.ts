@@ -1,13 +1,17 @@
 import axios, {AxiosResponse} from 'axios'
-import {ID, Response} from '../../../../../_metronic/helpers'
+import { Query } from 'react-query'
+import {ID, QueryState, Response} from '../../../../../_metronic/helpers'
 import {UserGroup, UserGroupsQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_API_URL
 const USER_URL = `${API_URL}/userGroups`
 
-const getUserGroups = (query: string): Promise<UserGroupsQueryResponse> => {
+const getUserGroups = (state: QueryState): Promise<UserGroupsQueryResponse> => {
+  //console.log('query', query)
   return axios
-    .get(`${USER_URL}/get-userGroups?${query}`)
+    .get(`${USER_URL}/get-userGroups`, {
+      headers: state
+    })
     .then((d: AxiosResponse<UserGroupsQueryResponse>) => d.data)
 }
 
@@ -33,7 +37,7 @@ const updateUserGroup = (userGroup: UserGroup): Promise<UserGroup | undefined> =
 }
 
 const deleteUserGroup = (userGroupId: string): Promise<void> => {
-  return axios.delete(`${USER_URL}/${userGroupId}`).then(() => {})
+  return axios.post(`${USER_URL}/delete-userGroup`, userGroupId).then(() => {})
 }
 
 const deleteSelectedUserGroups = (userIds: Array<ID>): Promise<void> => {

@@ -12,6 +12,7 @@ function isNotEmpty(obj: unknown) {
 
 // Example: page=1&items_per_page=10&sort=id&order=desc&search=a&filter_name=a&filter_online=false
 function stringifyRequestQuery(state: QueryState): string {
+  console.log('state', state)
   const pagination = qs.stringify(state, {filter: ['currentPage', 'pageSize'], skipNulls: true})
   const sort = qs.stringify(state, {filter: ['sort', 'order'], skipNulls: true})
   const search = isNotEmpty(state.search)

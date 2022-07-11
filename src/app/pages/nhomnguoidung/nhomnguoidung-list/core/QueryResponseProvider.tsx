@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {FC, useContext, useState, useEffect, useMemo} from 'react'
-import {useQuery} from 'react-query'
+import {Query, useQuery} from 'react-query'
 import {
   createResponseContext,
   initialQueryResponse,
@@ -18,9 +18,12 @@ const QueryResponseProvider: FC = ({children}) => {
   const {state} = useQueryRequest()
   console.log('state', state)
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
+  //const [query, setQuery] = useState<object>(state)
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
 
   useEffect(() => {
+    console.log('updatedQuery', updatedQuery)
+
     if (query !== updatedQuery) {
       setQuery(updatedQuery)
     }
@@ -33,7 +36,8 @@ const QueryResponseProvider: FC = ({children}) => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
-      return getUserGroups(query)
+      // return getUserGroups(query)
+      return getUserGroups(state)
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )
@@ -63,11 +67,21 @@ const useQueryResponsePagination = () => {
 
   const {response} = useQueryResponse()
   console.log('response', response)
-  if (!response || !response.payload || !response.payload.pagination) {
+  if (!response) {
     return defaultPaginationState
   }
 
-  return response.payload.pagination
+  response.Pagination = {
+    currentPage: response.CurrentPage ? response.CurrentPage : 1,
+    pageSize: response.PageSize ? response.PageSize : 10,
+    totalPages : response.TotalPages ? response.TotalPages : 1
+  }
+  return response.Pagination
+
+  // if (!response) {
+  //   return null
+  // }
+  // return response
 }
 
 const useQueryResponseLoading = (): boolean => {
