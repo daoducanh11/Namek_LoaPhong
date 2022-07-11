@@ -84,8 +84,10 @@ const UserGroupsPagination = () => {
             hrefAllControls
             forcePage={pagination.currentPage - 1}
             onClick={(clickEvent) => {
-              updateState({currentPage: clickEvent.nextSelectedPage, pageSize: pagination.pageSize})
               console.log('onClick', clickEvent);
+
+              if(clickEvent.nextSelectedPage !== undefined)
+                updatePage(clickEvent.nextSelectedPage + 1 || 1)
               // Return false to prevent standard page change,
               // return false; // --> Will do nothing.
               // return a number to choose the next page,
