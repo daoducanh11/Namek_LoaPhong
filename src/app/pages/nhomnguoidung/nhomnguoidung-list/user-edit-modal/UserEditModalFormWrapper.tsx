@@ -14,7 +14,7 @@ const UserEditModalFormWrapper = () => {
   } = useQuery(
     `${QUERIES.USERS_LIST}-user-${itemIdForUpdate}`,
     () => {
-      return getUserGroupById(itemIdForUpdate ? itemIdForUpdate : "")
+      return getUserGroupById(itemIdForUpdate || "")
     },
     {
       cacheTime: 0,
@@ -30,9 +30,9 @@ const UserEditModalFormWrapper = () => {
     return <UserEditModalForm isUserLoading={isLoading} userGroup={{Id: "0"}} />
   }
 
-  if (!isLoading && !error && userGroup) {
+  if (!isLoading && !error && userGroup && userGroup.Data) {
     console.log('userGroup', userGroup)
-    return <UserEditModalForm isUserLoading={isLoading} userGroup={userGroup} />
+    return <UserEditModalForm isUserLoading={isLoading} userGroup={userGroup.Data[0] || {Id: "0"}} />
   }
 
   return null

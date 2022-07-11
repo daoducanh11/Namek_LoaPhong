@@ -7,7 +7,6 @@ const API_URL = process.env.REACT_APP_API_URL
 const USER_URL = `${API_URL}/userGroups`
 
 const getUserGroups = (state: QueryState): Promise<UserGroupsQueryResponse> => {
-  //console.log('query', query)
   return axios
     .get(`${USER_URL}/get-userGroups`, {
       headers: state
@@ -15,11 +14,16 @@ const getUserGroups = (state: QueryState): Promise<UserGroupsQueryResponse> => {
     .then((d: AxiosResponse<UserGroupsQueryResponse>) => d.data)
 }
 
-const getUserGroupById = (id: string): Promise<UserGroup | undefined> => {
+// const getUserGroupById = (id: string): Promise<UserGroup | undefined> => {
+//   return axios
+//     .post(`${USER_URL}/get-userGroupByGroupId`, [id])
+//     .then((response: AxiosResponse<Response<UserGroup>>) => response.data)
+//     .then((response: Response<UserGroup>) => response.Data)
+// }
+const getUserGroupById = (id: string): Promise<UserGroupsQueryResponse> => {
   return axios
-    .get(`${USER_URL}/${id}`)
-    .then((response: AxiosResponse<Response<UserGroup>>) => response.data)
-    .then((response: Response<UserGroup>) => response.data)
+    .post(`${USER_URL}/get-userGroupByGroupId`, [id])
+    .then((d: AxiosResponse<UserGroupsQueryResponse>) => d.data)
 }
 
 const createUserGroup = (userGroup: UserGroup): Promise<UserGroup | undefined> => {
@@ -30,14 +34,20 @@ const createUserGroup = (userGroup: UserGroup): Promise<UserGroup | undefined> =
 }
 
 const updateUserGroup = (userGroup: UserGroup): Promise<UserGroup | undefined> => {
+  console.log('userGroupE', userGroup)
   return axios
-    .post(`${USER_URL}/${userGroup.Id}`, userGroup)
+    .put(`${USER_URL}/update-userGroup`, userGroup)
     .then((response: AxiosResponse<Response<UserGroup>>) => response.data)
     .then((response: Response<UserGroup>) => response.data)
 }
 
 const deleteUserGroup = (userGroupId: string): Promise<void> => {
-  return axios.post(`${USER_URL}/delete-userGroup`, userGroupId).then(() => {})
+  return axios.put(`${USER_URL}/delete-userGroup`, userGroupId, {
+    headers: {
+      id: userGroupId
+    }
+  }).then(() => {})
+  
 }
 
 const deleteSelectedUserGroups = (userIds: Array<ID>): Promise<void> => {

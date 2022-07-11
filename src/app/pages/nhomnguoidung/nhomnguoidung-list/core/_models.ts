@@ -3,7 +3,7 @@ export type UserGroup = {
   Id?: string
   UserGroupName?: string
   Info?: string
-  Permissions?: []
+  Permissions?: number[]
   CreateTime?: Date
   UpdateTime?: Date
   Address?: string

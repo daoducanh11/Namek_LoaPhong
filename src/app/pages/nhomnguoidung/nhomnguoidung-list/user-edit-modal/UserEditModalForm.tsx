@@ -8,6 +8,7 @@ import {useListView} from '../core/ListViewProvider'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {createUserGroup, updateUserGroup} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
+import Swal from 'sweetalert2'
 
 type Props = {
   isUserLoading: boolean
@@ -32,10 +33,11 @@ const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
 
   const [userGroupForEdit] = useState<UserGroup>({
     ...userGroup,
-    UserGroupName: userGroup.UserGroupName,
-    Address: userGroup.Address,
-    Info: userGroup.Info,
-    IsActive: userGroup.IsActive || initialUserGroup.IsActive
+    UserGroupName: userGroup.UserGroupName || '',
+    Address: userGroup.Address || '',
+    Info: userGroup.Info || '',
+    IsActive: userGroup.IsActive || initialUserGroup.IsActive,
+    Permissions: userGroup.Permissions || [1]
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -54,7 +56,13 @@ const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
       setSubmitting(true)
       try {
         if (values.Id !== "0") {
-          await updateUserGroup(values)
+          await updateUserGroup(values).then( () =>
+            Swal.fire(
+              "Cập nhật thông tin thành công",
+              " ",
+              "success"
+            )
+          )
         } else {
           await createUserGroup(values)
         }

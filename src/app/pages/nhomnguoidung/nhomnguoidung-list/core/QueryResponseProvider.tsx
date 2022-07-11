@@ -72,9 +72,10 @@ const useQueryResponsePagination = () => {
   }
 
   response.Pagination = {
-    currentPage: response.CurrentPage ? response.CurrentPage : 1,
-    pageSize: response.PageSize ? response.PageSize : 10,
-    totalPages : response.TotalPages ? response.TotalPages : 1
+    currentPage: response.CurrentPage || 1,
+    pageSize: response.PageSize || 10,
+    totalPages : response.TotalPages || 1,
+    totalItems: response.TotalItems || 0
   }
   return response.Pagination
 

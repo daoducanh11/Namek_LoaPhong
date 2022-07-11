@@ -7,6 +7,7 @@ export type PaginationState = {
   pageSize: number
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
   totalPages: number
+  totalItems: number
 }
 
 export type SortState = {
@@ -49,7 +50,8 @@ export type QueryRequestContextProps = {
 export const initialQueryState: QueryState = {
   currentPage: 1,
   pageSize: 5,
-  totalPages: 1
+  totalPages: 1,
+  totalItems: 10
 }
 
 export const initialQueryRequest: QueryRequestContextProps = {

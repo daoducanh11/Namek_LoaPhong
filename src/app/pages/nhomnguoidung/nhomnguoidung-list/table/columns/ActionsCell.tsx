@@ -22,7 +22,6 @@ const ActionsCell: FC<Props> = ({id}) => {
   }, [])
 
   const openEditModal = () => {
-    alert(id)
     setItemIdForUpdate(id)
   }
 
@@ -35,14 +34,9 @@ const ActionsCell: FC<Props> = ({id}) => {
       confirmButtonText: "Có",
       cancelButtonText: "Không",
       confirmButtonColor: "red",
-    }).then(function(result) {
+    }).then(async function(result) {
         if (result.value) {
-          async () => await deleteItem.mutateAsync()
-            Swal.fire(
-                "Xóa thành công",
-                " ",
-                "success"
-            )
+          await deleteItem.mutateAsync()
         }
     });
   }
@@ -52,7 +46,19 @@ const ActionsCell: FC<Props> = ({id}) => {
     onSuccess: () => {
       // ✅ update detail view directly
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
+      Swal.fire(
+        "Xóa thành công",
+        " ",
+        "success"
+      )
     },
+    onError: () => {
+      Swal.fire(
+        "Xóa thất bại",
+        " ",
+        "error"
+      )
+    }
   })
 
   return (
@@ -61,39 +67,6 @@ const ActionsCell: FC<Props> = ({id}) => {
         <i className="bi bi-pencil-square fs-1" onClick={openEditModal} style={{cursor: 'pointer', margin: '0 5px 0 0'}}></i>
         <i className="bi bi-trash text-danger fs-1" onClick={Fdelete} style={{cursor: 'pointer'}}></i>
       </div>
-      
-      <div
-        className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4'
-        data-kt-menu='true'
-      >
-        {/* begin::Menu item */}
-        <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
-            Edit
-          </a>
-        </div>
-        {/* end::Menu item */}
-
-        {/* begin::Menu item */}
-        <div className='menu-item px-3'>
-          {/* <a
-            className='menu-link px-3'
-            data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
-          >
-            Delete
-          </a> */}
-          <a
-            className='menu-link px-3'
-            //data-kt-users-table-filter='delete_row'
-            onClick={Fdelete}
-          >
-            Delete
-          </a>
-        </div>
-        {/* end::Menu item */}
-      </div>
-      {/* end::Menu */}
     </>
   )
 }

@@ -2,8 +2,8 @@
 import clsx from 'clsx'
 import {useQueryResponseLoading, useQueryResponsePagination} from '../../core/QueryResponseProvider'
 import {useQueryRequest} from '../../core/QueryRequestProvider'
-import styled from 'styled-components';
-import ReactPaginate from 'react-paginate';
+import styled from 'styled-components'
+import ReactPaginate from 'react-paginate'
 
 const MyPaginate = styled(ReactPaginate).attrs({
   // You can redifine classes here, if you want.
@@ -59,7 +59,8 @@ const UserGroupsPagination = () => {
     <div className="commentBox">
         {/* Here the pagination component is styled thanks to Bootstrap
         classes. See https://getbootstrap.com/docs/5.1/components/pagination */}
-        <nav aria-label="Page navigation comments" className="mt-4">
+        <nav aria-label="Page navigation comments" className="mt-4" style={{display: 'flex', alignItems: 'center'}}>
+          <span>Tổng {pagination.totalItems} người dùng</span>
           <ReactPaginate
             previousLabel="Trước"
             nextLabel="Sau"
