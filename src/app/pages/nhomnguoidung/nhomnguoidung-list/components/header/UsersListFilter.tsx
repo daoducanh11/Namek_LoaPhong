@@ -36,14 +36,14 @@ const UsersListFilter = () => {
         data-kt-menu-placement='bottom-end'
       >
         <KTSVG path='/media/icons/duotune/general/gen031.svg' className='svg-icon-2' />
-        Filter
+        Lọc
       </button>
       {/* end::Filter Button */}
       {/* begin::SubMenu */}
       <div className='menu menu-sub menu-sub-dropdown w-300px w-md-325px' data-kt-menu='true'>
         {/* begin::Header */}
         <div className='px-7 py-5'>
-          <div className='fs-5 text-dark fw-bolder'>Filter Options</div>
+          <div className='fs-5 text-dark fw-bolder'>Filter Options: đang cập nhật...</div>
         </div>
         {/* end::Header */}
 

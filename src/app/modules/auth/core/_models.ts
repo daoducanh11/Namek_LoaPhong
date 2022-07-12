@@ -47,23 +47,35 @@ export interface UserSocialNetworksModel {
 export interface UserModel {
   Id: string
   UserName: string
-  password: string | undefined
+  Password: string | undefined
   Email: string
-  first_name: string
-  last_name: string
   FullName?: string
-  occupation?: string
-  companyName?: string
-  phone?: string
-  roles?: Array<number>
-  pic?: string
-  language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
-  timeZone?: string
-  website?: 'https://keenthemes.com'
-  emailSettings?: UserEmailSettingsModel
-  auth?: AuthModel
-  communication?: UserCommunicationModel
-  address?: UserAddressModel
-  socialNetworks?: UserSocialNetworksModel,
+  PhoneNumber?: string
+  
   api_token: string
+
+  GroupId: string,
+  UserGroupIds: Array<string>,
+  DeviceGroupIds: Array<string>,
+  Permissions: Array<number>,
+  CreateTime: Date,
+  PaswordTimeReset: Date,
+  InvalidPasswordCount: number,
+  IsActive: boolean,
+  Address: string,
+
+  // roles?: Array<number>
+  // pic?: string
+  // language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
+  // timeZone?: string
+  // website?: 'https://keenthemes.com'
+  // emailSettings?: UserEmailSettingsModel
+  // auth?: AuthModel
+  // communication?: UserCommunicationModel
+  // address?: UserAddressModel
+  // socialNetworks?: UserSocialNetworksModel,
+  // occupation?: string
+  // companyName?: string
+  // first_name: string
+  // last_name: string
 }

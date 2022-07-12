@@ -1,14 +1,16 @@
+import React, {useState} from 'react'
 import axios, {AxiosResponse} from 'axios'
 import { Query } from 'react-query'
 import {ID, QueryState, Response} from '../../../../../_metronic/helpers'
 import {UserGroup, UserGroupsQueryResponse} from './_models'
+import { UserModel } from '../../../../modules/auth'
 
 const API_URL = process.env.REACT_APP_API_URL
 const USER_URL = `${API_URL}/userGroups`
 
-const getUserGroups = (state: QueryState): Promise<UserGroupsQueryResponse> => {
+const getUserGroups = (state: QueryState, currentUser?: UserModel): Promise<UserGroupsQueryResponse> => {
   return axios
-    .get(`${USER_URL}/get-userGroups`, {
+    .post(`${USER_URL}/get-userGroupByGroupId`, currentUser?.UserGroupIds, {
       headers: state
     })
     .then((d: AxiosResponse<UserGroupsQueryResponse>) => d.data)

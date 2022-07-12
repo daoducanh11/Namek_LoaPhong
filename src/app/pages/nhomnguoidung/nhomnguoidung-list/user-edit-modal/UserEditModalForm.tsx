@@ -9,6 +9,9 @@ import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {createUserGroup, updateUserGroup} from '../core/_requests'
 import {useQueryResponse} from '../core/QueryResponseProvider'
 import Swal from 'sweetalert2'
+import {getUserByToken} from '../../../../../app/modules/auth/core/_requests'
+import {useAuth} from '../../../../../app/modules/auth/core/Auth'
+
 
 type Props = {
   isUserLoading: boolean
@@ -22,14 +25,23 @@ const editUserSchema = Yup.object().shape({
   //   .max(50, 'Maximum 50 symbols')
   //   .required('Email is required'),
   UserGroupName: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
+    .min(3, 'Tối thiểu 3 ký tự')
+    .max(250, 'Tối đa 250 ký tự')
     .required('Tên nhóm không được để trống'),
+  Address: Yup.string()
+    .min(3, 'Tối thiểu 3 ký tự')
+    .max(250, 'Tối đa 250 ký tự')
+    .required('Địa chỉ không được để trống'),
+  Info: Yup.string()
+    .min(3, 'Tối thiểu 3 ký tự')
+    .max(250, 'Tối đa 250 ký tự')
+    .required('Thông tin nhóm không được để trống'),
 })
 
 const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+  const {auth, setCurrentUser} = useAuth()
 
   const [userGroupForEdit] = useState<UserGroup>({
     ...userGroup,
@@ -64,7 +76,18 @@ const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
             )
           )
         } else {
-          await createUserGroup(values)
+          await createUserGroup(values).then( () =>
+            Swal.fire(
+              "Thêm nhóm thành công",
+              " ",
+              "success"
+            )
+          )
+        }
+        if(auth)
+        {
+          const {data: user} = await getUserByToken(auth.AccessToken)
+          setCurrentUser(user)
         }
       } catch (ex) {
         console.error(ex)
@@ -123,12 +146,12 @@ const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
             </div>
             <div className='col-6'>
               {/* begin::Label */}
-              <label className='required fw-bold fs-6 mb-2'>IMEI bộ phát</label>
+              <label className='required fw-bold fs-6 mb-2'>Địa chỉ</label>
               {/* end::Label */}
 
               {/* begin::Input */}
               <input
-                placeholder='IMEI bộ phát'
+                placeholder='Địa chỉ'
                 {...formik.getFieldProps('Address')}
                 type='text'
                 name='Address'
@@ -180,7 +203,7 @@ const UserEditModalForm: FC<Props> = ({userGroup, isUserLoading}) => {
             {/* end::Input */}
             {formik.touched.Info && formik.errors.Info && (
               <div className='fv-plugins-message-container'>
-                <span role='alert'>{formik.errors.Info}</span>
+                <span className='text-danger' role='alert'>{formik.errors.Info}</span>
               </div>
             )}
           </div>

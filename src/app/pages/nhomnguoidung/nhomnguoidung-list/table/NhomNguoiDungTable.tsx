@@ -6,7 +6,6 @@ import {useQueryResponseData, useQueryResponseLoading} from '../core/QueryRespon
 import {userGroupsColumns} from './columns/_columns'
 import {UserGroup} from '../core/_models'
 import {UsersListLoading} from '../components/loading/UsersListLoading'
-import {UserGroupsListPagination} from '../components/pagination/UsersListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
 import {UserGroupsPagination} from '../components/pagination/UserGroupsPagination'
 

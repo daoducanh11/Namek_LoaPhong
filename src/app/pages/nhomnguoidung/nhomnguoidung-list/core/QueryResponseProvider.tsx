@@ -12,6 +12,7 @@ import {
 import {getUserGroups} from './_requests'
 import {UserGroup} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
+import {useAuth} from '../../../../../app/modules/auth/core/Auth'
 
 const QueryResponseContext = createResponseContext<UserGroup>(initialQueryResponse)
 const QueryResponseProvider: FC = ({children}) => {
@@ -20,6 +21,7 @@ const QueryResponseProvider: FC = ({children}) => {
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   //const [query, setQuery] = useState<object>(state)
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
+  const {currentUser} = useAuth()
 
   useEffect(() => {
     console.log('updatedQuery', updatedQuery)
@@ -37,7 +39,7 @@ const QueryResponseProvider: FC = ({children}) => {
     `${QUERIES.USERS_LIST}-${query}`,
     () => {
       // return getUserGroups(query)
-      return getUserGroups(state)
+      return getUserGroups(state, currentUser)
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )

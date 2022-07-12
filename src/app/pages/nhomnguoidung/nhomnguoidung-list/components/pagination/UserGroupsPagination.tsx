@@ -2,45 +2,45 @@
 import clsx from 'clsx'
 import {useQueryResponseLoading, useQueryResponsePagination} from '../../core/QueryResponseProvider'
 import {useQueryRequest} from '../../core/QueryRequestProvider'
-import styled from 'styled-components'
+//import styled from 'styled-components'
 import ReactPaginate from 'react-paginate'
 
-const MyPaginate = styled(ReactPaginate).attrs({
-  // You can redifine classes here, if you want.
-  activeClassName: 'active', // default to "disabled"
-})`
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style-type: none;
-  padding: 0 5rem;
+// const MyPaginate = styled(ReactPaginate).attrs({
+//   // You can redifine classes here, if you want.
+//   activeClassName: 'active', // default to "disabled"
+// })`
+//   margin-bottom: 2rem;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   list-style-type: none;
+//   padding: 0 5rem;
 
-  li a {
-    border-radius: 7px;
-    padding: 0.1rem 1rem;
-    border: gray 1px solid;
-    cursor: pointer;
-  }
-  li.previous a,
-  li.next a,
-  li.break a {
-    border-color: transparent;
-  }
-  li.active a {
-    background-color: #0366d6;
-    border-color: transparent;
-    color: white;
-    min-width: 32px;
-  }
-  li.disabled a {
-    color: grey;
-  }
-  li.disable,
-  li.disabled a {
-    cursor: default;
-  }
-`;
+//   li a {
+//     border-radius: 7px;
+//     padding: 0.1rem 1rem;
+//     border: gray 1px solid;
+//     cursor: pointer;
+//   }
+//   li.previous a,
+//   li.next a,
+//   li.break a {
+//     border-color: transparent;
+//   }
+//   li.active a {
+//     background-color: #0366d6;
+//     border-color: transparent;
+//     color: white;
+//     min-width: 32px;
+//   }
+//   li.disabled a {
+//     color: grey;
+//   }
+//   li.disable,
+//   li.disabled a {
+//     cursor: default;
+//   }
+// `;
 
 const UserGroupsPagination = () => {
   const pagination = useQueryResponsePagination()
@@ -60,7 +60,8 @@ const UserGroupsPagination = () => {
         {/* Here the pagination component is styled thanks to Bootstrap
         classes. See https://getbootstrap.com/docs/5.1/components/pagination */}
         <nav aria-label="Page navigation comments" className="mt-4" style={{display: 'flex', alignItems: 'center'}}>
-          <span>Tổng {pagination.totalItems} người dùng</span>
+          <span>Tổng {pagination.totalItems} bản ghi</span>
+          <span style={{flex: 1}}></span>
           <ReactPaginate
             previousLabel="Trước"
             nextLabel="Sau"

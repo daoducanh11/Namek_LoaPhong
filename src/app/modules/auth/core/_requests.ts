@@ -55,7 +55,7 @@ export function getUserByToken(token: string) {
 
   
   var obj= axios.get<UserModel>(GET_USER_BY_ACCESSTOKEN_URL);
-    console.log(obj);
+    console.log('obj', obj);
    return obj;
 }
  

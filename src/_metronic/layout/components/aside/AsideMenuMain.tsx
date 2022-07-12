@@ -15,7 +15,7 @@ export function AsideMenuMain() {
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
-    
+
 
 
        <AsideMenuItemWithSub
@@ -31,12 +31,19 @@ export function AsideMenuMain() {
             fontIcon='bi-layers'
           />
 
-          <AsideMenuItem
-            to='/apps/user-management/users'
-            icon='/media/icons/duotune/general/gen051.svg'
-            title='Người dùng'
-            fontIcon='bi-layers'
-          />
+        <AsideMenuItem
+          to='/diachi/danhsach'
+          icon='/media/icons/duotune/general/gen051.svg'
+          title='Địa chỉ'
+          fontIcon='bi-layers'
+        />
+
+        <AsideMenuItem
+          to='/apps/user-management/users'
+          icon='/media/icons/duotune/general/gen051.svg'
+          title='Người dùng'
+          fontIcon='bi-layers'
+        />
 
              <AsideMenuItem
             to='/apps/user-management/users'

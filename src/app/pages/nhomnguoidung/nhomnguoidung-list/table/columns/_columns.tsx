@@ -23,7 +23,7 @@ const userGroupsColumns: ReadonlyArray<Column<UserGroup>> = [
     accessor: 'UserGroupName',
   },
   {
-    Header: (props) => <NhomNguoiDungCustomHeader tableProps={props} title='IMEI bộ phát' className='min-w-125px' />,
+    Header: (props) => <NhomNguoiDungCustomHeader tableProps={props} title='Địa chỉ' className='min-w-125px' />,
     accessor: 'Address',
   },
   {

@@ -23,6 +23,7 @@ const PrivateRoutes = () => {
 
   //Bổ sung menu
   const NhomNguoiDungPage = lazy(() => import('../pages/nhomnguoidung/NhomNguoiDungPage'))
+  const DiaChiPage = lazy(() => import('../pages/diachi/DiaChiPage'))
 
   return (
     <Routes>
@@ -39,6 +40,15 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <NhomNguoiDungPage />
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='/diachi/*'
+          element={
+            <SuspensedView>
+              <DiaChiPage />
             </SuspensedView>
           }
         />
